@@ -31,6 +31,7 @@ table {
 table, td, th {
     border: 1px solid black;
     padding: 5px;
+    
 }
 
 th {text-align: left;}
@@ -39,6 +40,7 @@ th {text-align: left;}
 <body>
 <?php
 	$q = intval($_GET['q']);
+	
 //iterate through the workflows
 	echo '<h2 class="demoHeaders">Workflow(s)</h2>
 		 <select id="workflow_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadSspecDoc(this.value)">
@@ -54,7 +56,7 @@ th {text-align: left;}
 		$i = 1;
 		foreach ( $db->query($sql) as $row )
 		{
-			echo "<option value='".$row['wid']."''>".$row['name']."</option>";
+			echo '<option value="'.$row['wid'].'">'.$row['name'].'</option>';
 			$i += 1;
 		}
   echo '</select>';

@@ -1,3 +1,24 @@
+<?php
+
+  include("PHPAuth/Config.php");
+  include("PHPAuth/Auth.php");
+
+  $dbh = new PDO("mysql:host=localhost;dbname=phpauth", "root", "");
+  $config = new PHPAuth\Config($dbh);
+  $auth   = new PHPAuth\Auth($dbh, $config);
+  $workflow = "";
+  $i = 1;
+
+  if (!$auth->isLogged()) {
+    header('HTTP/1.0 403 Forbidden');
+    echo "Forbidden";
+
+    exit();
+  }
+  
+  $uid = $auth->getSessionUID( $_COOKIE[$config->cookie_name] );
+  $data = $auth->getUser( $uid );
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,17 +43,45 @@ th {text-align: left;}
 	$q = intval($_GET['q']);
 	//$stages = array();
 	//comment
+	$stages;
+	$workflow;
 	$info = array();
-	$stages = 3;
+	//get workflow from name of sspec
+	$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
+	$sql = "SELECT * FROM sspec WHERE name = '".$_GET['q']."'";
+	foreach ( $db->query($sql) as $row )
+	{
+		$workflow = $row['workflow'];
+	}
+	$sql = "SELECT stages FROM workflows WHERE name = '".$workflow."'";
+	foreach ( $db->query($sql) as $row )
+	{
+		$stages = $row['stages'];
+	}
 	echo '<table style="width:600px">
 	<tr>
-	<th>Property / Stage #</th>';
-	for($i = 1; $i <= $stages; $i++)
-			{
-				echo "<th>".$i."</th>";
-			}
-	echo '</tr>';
-	if($q == 1) //populate form feilds
+	<th>Stage #/ Property</th>
+			<th>AC</th>
+			<th>AU</th>
+			<th>CA</th>
+			<th>IA</th>
+			<th>SA</th>
+			<th>SC</th>
+			<th>SI</th>
+			<th>AT</th>
+			<th>CM</th>
+			<th>CP</th>
+			<th>IR</th>
+			<th>MA</th>
+			<th>MP</th>
+			<th>PE</th>
+			<th>PL</th>
+			<th>PM</th>
+			<th>PS</th>
+			<th>RA</th>
+	</tr>';
+	
+	if($_GET['q'] == '0') //populate form feilds
 	{
 		//loop stages and radio boxes
 		echo '<tr>
@@ -309,143 +358,54 @@ th {text-align: left;}
 		echo '</table>
 		<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="window.location.href=""><span class="ui-button-text">Add Sspec</span></button>';
 	}else //get workflow information from DB
-	{
-		echo '<tr>
-			<td>AC</td>';
-			for($i = 1; $i <= $stages; $i++)
+	{		
+	    //loop stages
+		//get Data from DB
+		$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
+		for($i = 1; $i <= $stages; $i++)
+		{
+			echo '<tr><td>'.$i.'</td>';
+			$sql = "SELECT * FROM sspec WHERE name = '".$_GET['q']."' AND stage ='".$i."'";
+			echo $sql;
+			foreach ( $db->query($sql) as $row )
 			{
-				echo '<td></td>';
+				echo '<td>'.$row['ac'].'</td>';
+				echo '<td>'.$row['au'].'</td>';
+				echo '<td>'.$row['ca'].'</td>';
+				echo '<td>'.$row['ia'].'</td>';
+				echo '<td>'.$row['sa'].'</td>';
+				echo '<td>'.$row['sc'].'</td>';
+				echo '<td>'.$row['si'].'</td>';
+				echo '<td>'.$row['at'].'</td>';
+				echo '<td>'.$row['cm'].'</td>';
+				echo '<td>'.$row['cp'].'</td>';
+				echo '<td>'.$row['ir'].'</td>';
+				echo '<td>'.$row['ma'].'</td>';
+				echo '<td>'.$row['mp'].'</td>';
+				echo '<td>'.$row['pe'].'</td>';
+				echo '<td>'.$row['pl'].'</td>';
+				echo '<td>'.$row['pm'].'</td>';
+				echo '<td>'.$row['ps'].'</td>';
+				echo '<td>'.$row['ra'].'</td>';
 			}
-		echo '</tr>
-		<tr>
-			<td>AU</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>CA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>IA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>SA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>SC</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>SI</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>AT</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>CM</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>CP</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>IR</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>MA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>MP</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>PE</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>PL</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>PM</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>PS</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>RA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td></td>';
-			}
-		echo '</tr>';
+			echo '</tr>';
+		}
 		echo "</table>";
+		//gereration of qspec selection
+		echo '<h2 class="demoHeaders">Qspecs(s)</h2>
+		 <select id="qspec_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="">
+			<option value="" selected="selected">Select a Qspec</option>
+			<option value="0">Create a Qspec</option>';
+		$i = 1;
+		$sql = "SELECT DISTINCT name FROM qspec WHERE workflow = '".$workflow."'";
+		foreach ( $db->query($sql) as $row ) {
+			echo '<option value="'.$row['name'].'">'.$row['name'].'</option>';
+			$i++;
+		}
+			
+		echo '</select>';
 	}
-echo '<h2 class="demoHeaders">Qspecs(s)</h2>
-     <select id="qspec_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="">
-		<option value="" selected="selected">Select a Qspec</option>
-		<option value="1">Create a Qspec</option>
-		<option value="1">Qspec1</option>
-		<option value="2">Qspec2</option>
-		<option value="3">Qspec3</option>
-	</select>';
+
 ?>
 </body>
 </html>
