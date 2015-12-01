@@ -18,19 +18,25 @@ You'll need to do two things in order to deploy the framework interface:
     g. Click the "Choose file" button and select the "database_mysql.sql" file in the "PHPAuth" folder of the repository
     h. Click "Go"
 
-That's it!  You can visit the main page by visiting "localhost/CloudIIsecFramework/index.php" in your web browser.
+  3. Follow a similar process as above to create the "FSOFT_elements", "FSOFT_security", and "FSOFT_performance" databases, and populate them with the .sql files supplied in the "databases" folder of the repository.
+
+That's it!  You can visit the main page by visiting "localhost/CloudIIsecFramework/index.php" in your web browser.  Login with the following credentials to see the full range of implementation:
+
+  Username: test@test.com
+  Password: test
 
 #Supported Actions
 Below is a list of the currently implemented functionality:
   1. Create an account
   2. Login
+  3. Select and view applications
+  4. Select and view workflows
+  5. Select S-Spec
   3. Logout
 
 #Todo
-  1. Create database file for framework
-  2. Implement application selection
-  3. Implement workflow selection
-  4. Implement S-Spec generation/selection
+  3. Implement workflow creation
+  4. Implement S-Spec generation
   5. Implement Q-Spec generation/selection
   6. Implement the resource selection process
   7. Implement output of the resource selection process
