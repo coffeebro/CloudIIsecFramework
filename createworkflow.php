@@ -8,7 +8,7 @@ $dbh = new PDO( "mysql:host=localhost;dbname=FSOFT_elements", "root", "" );
 $sql = "INSERT INTO workflows (wid, name, application, stages, origin, public) VALUES ('null', '".$_POST['name']."', '".$_POST['application']."', '".$_POST['stages']."', '".$_POST['origin']."', '".$_POST['public']."')";
 //		$i = 1;
 $sth = $dbh->query($sql);
-echo $sql;
+
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,8 @@ echo $sql;
 
     <div>
       <?php
-        echo '<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="window.location.href=\'home.php\'"><span class="ui-button-text">Home</span></button>';
+      	echo 'WorkFlow Added';
+        echo '<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="window.location.href=\'home.php\'"><span class="ui-button-text">Return Home</span></button>';
       ?>
     </div>
 
