@@ -40,25 +40,35 @@ th {text-align: left;}
 <body>
 <?php
 	//Add info for the workflow selected
+	
+	//form wrapper
+	$q = intval($_GET['q']);
+	if($q == 0)
+	{
+		echo '<form action="createworkflow.php" method="POST">';
+	}
 	echo '<table style="width:400px">
 	<tr>
 	<th>Name</th>
+	<th>Application</th>
 	<th>Stages</th>
 	<th>Origin</th>
+	<th>Public</th>
 	</tr>';
-
-	$q = intval($_GET['q']);
 	if($q == 0) //populate form feilds
 	{
 		echo '
 		<tr>
-		<td><input type="text" name="name"></td>
-		<td><input type="text" name="stages"></td>
-		<td><input type="text" name="origin" value="'.$data['email'].'"></td>
-		</tr>';
-		//make button to submit to server
-		echo '</table>
-		<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="window.location.href=""><span class="ui-button-text">Add WorkFlow</span></button>';
+			<td><input type="text" name="name"></td>
+			<td>'.$_GET['q'].'<input type="hidden" name="application" value="'.$_GET['q'].'"></td>
+			<td><input type="text" name="stages"></td>
+			<td>'.$data['email'].'<input type="hidden" name="origin" value="'.$data['email'].'"></td>
+			<td><input type="text" name="public"></td>
+		</tr>
+		</table>
+		<input type="submit" value="Add WorkFlow" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-hover ui-state-active"role="button"><span class="ui-button-text"></span>
+		</form>';
+		//<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="window.location.href=""><span class="ui-button-text">Add WorkFlow</span></button>';
 	}else //get workflow information from DB
 	{
 		$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
@@ -66,7 +76,7 @@ th {text-align: left;}
 		echo '<tr>';
 		foreach ( $db->query($sql) as $row )
 		{
-			echo "<td>".$row['name']."</td><td>".$row['stages']."</td><td>".$row['origin']."</td>";
+			echo "<td>".$row['name']."</td><td>".$row['application']."</td><td>".$row['stages']."</td><td>".$row['origin']."</td><td>".$row['public']."</td>";
 			$workflow = $row['name'];
 		}
 		echo '</tr>';

@@ -43,14 +43,15 @@ th {text-align: left;}
 	
 //iterate through the workflows
 	echo '<h2 class="demoHeaders">Workflow(s)</h2>
-		 <select id="workflow_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadSspecDoc(this.value)">
-			<option value="" selected="selected">Select a workflow</option>
-			<option value="0">Create a Workflow</option>';
-	$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
-    $sql = "SELECT * FROM applications WHERE aid = ".$q;
-    foreach ( $db->query($sql) as $row ) {
-      $app = $row['name'];
-    }
+		 <select id="workflow_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadSspecDoc(this.value,'.$q.')">
+			<option value="" selected="selected">Select a workflow</option>';
+		$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
+		$sql = "SELECT * FROM applications WHERE aid = ".$q;
+		foreach ( $db->query($sql) as $row ) {
+		  $app = $row['name'];
+		}
+		echo '<option value="'.$app.'">Create a Workflow</option>';
+	
 
 		$sql = "SELECT * FROM workflows WHERE application = '".$app."' AND (origin = '".$data['email']."' OR public = 1)";
 		$i = 1;
