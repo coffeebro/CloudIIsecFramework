@@ -4,7 +4,6 @@
   include("PHPAuth/Auth.php");
 
   $dbh = new PDO("mysql:host=localhost;dbname=phpauth", "root", "");
-
   $config = new PHPAuth\Config($dbh);
   $auth   = new PHPAuth\Auth($dbh, $config);
 
@@ -24,7 +23,50 @@
   <head>
     <meta charset="utf-8">
     <title>Federated Security Framework User Homepage</title>
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link href="css/jquery-ui.min.css" rel="stylesheet">
+    <style>
+	body{
+		font: 62.5% "Trebuchet MS", sans-serif;
+		margin: 50px;
+	}
+	.demoHeaders {
+		margin-top: 2em;
+	}
+	#dialog-link {
+		padding: .4em 1em .4em 20px;
+		text-decoration: none;
+		position: relative;
+	}
+	#dialog-link span.ui-icon {
+		margin: 0 5px 0 0;
+		position: absolute;
+		left: .2em;
+		top: 50%;
+		margin-top: -8px;
+	}
+	#icons {
+		margin: 0;
+		padding: 0;
+	}
+	#icons li {
+		margin: 2px;
+		position: relative;
+		padding: 4px 0;
+		cursor: pointer;
+		float: left;
+		list-style: none;
+	}
+	#icons span.ui-icon {
+		float: left;
+		margin: 0 4px;
+	}
+	.fakewindowcontain .ui-widget-overlay {
+		position: absolute;
+	}
+	select {
+		width: 200px;
+	}
+	</style>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script>
@@ -95,49 +137,7 @@
 		}
 	}
 </script>
-    <style>
-	body{
-		font: 62.5% "Trebuchet MS", sans-serif;
-		margin: 50px;
-	}
-	.demoHeaders {
-		margin-top: 2em;
-	}
-	#dialog-link {
-		padding: .4em 1em .4em 20px;
-		text-decoration: none;
-		position: relative;
-	}
-	#dialog-link span.ui-icon {
-		margin: 0 5px 0 0;
-		position: absolute;
-		left: .2em;
-		top: 50%;
-		margin-top: -8px;
-	}
-	#icons {
-		margin: 0;
-		padding: 0;
-	}
-	#icons li {
-		margin: 2px;
-		position: relative;
-		padding: 4px 0;
-		cursor: pointer;
-		float: left;
-		list-style: none;
-	}
-	#icons span.ui-icon {
-		float: left;
-		margin: 0 4px;
-	}
-	.fakewindowcontain .ui-widget-overlay {
-		position: absolute;
-	}
-	select {
-		width: 200px;
-	}
-	</style>
+
   </head>
   <body>
     <!-- page content -->
@@ -148,13 +148,23 @@
 	<!-- loop through available applications for user(stored in DB) -->
 	<select id="app_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadWorkflowDoc(this.value)">
 		<option value="" selected="selected">Select an Application</option>
-		<option value="1">SoyKB</option>
-		<option value="2">stuff</option>
-		<option value="3">stuff2</option>
+		<?php 
+		$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
+		$sql = "SELECT * FROM applications";
+		$i = 1;
+		foreach ( $db->query($sql) as $row )
+		{
+			echo "<option value=".$i.">".$row['name']."</option>";
+			$i += 1;
+		}
+		?>
 	</select>
 	<br>
     <div id="workflow"><b></b></div>
     <div id="sspec"><b></b></div>
     <div id="qspec"><b></b></div>
+    <script>
+    $( "#radioset" ).buttonset();
+    </script>
   </body>
 </html>

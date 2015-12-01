@@ -17,14 +17,12 @@ th {text-align: left;}
 </head>
 <body>
 <?php
+	$q = intval($_GET['q']);
 //iterate through the workflows
 echo '<h2 class="demoHeaders">Workflow(s)</h2>
      <select id="workflow_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadSspecDoc(this.value)">
 		<option value="" selected="selected">Select a workflow</option>
 		<option value="1">Create a Workflow</option>
-		<option value="2">workflow1</option>
-		<option value="3">workflow2</option>
-		<option value="4">workflow3</option>
 	</select>';
 ?>
 </body>

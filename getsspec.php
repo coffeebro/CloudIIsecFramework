@@ -13,19 +13,6 @@ table, td, th {
 }
 
 th {text-align: left;}
-
-DIV.table 
-{
-    display:table;
-}
-FORM.tr, DIV.tr
-{
-    display:table-row;
-}
-SPAN.td
-{
-    display:table-cell;
-}
 </style>
 </head>
 <body>
@@ -63,17 +50,15 @@ SPAN.td
 			echo "</tr>";
 		}*/
 		echo "</table>";
+		echo '<h2 class="demoHeaders">Sspec(s)</h2>
+		<select id="sspec_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadQspecDoc(this.value)">
+			<option value="" selected="selected">Select a Sspec</option>
+			<option value="1">Create a Sspec</option>
+			<option value="1">Sspec1</option>
+			<option value="2">Sspec2</option>
+			<option value="3">Sspec3</option>
+		</select>';
 	}
-	
-
-echo '<h2 class="demoHeaders">Sspec(s)</h2>
-     <select id="sspec_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadQspecDoc(this.value)">
-		<option value="" selected="selected">Select a Sspec</option>
-		<option value="1">Create a Sspec</option>
-		<option value="1">Sspec1</option>
-		<option value="2">Sspec2</option>
-		<option value="3">Sspec3</option>
-	</select>';
 ?>
 </body>
 </html>
