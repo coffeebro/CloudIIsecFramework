@@ -151,11 +151,9 @@
 		<?php 
 		$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
 		$sql = "SELECT * FROM applications";
-		$i = 1;
 		foreach ( $db->query($sql) as $row )
 		{
-			echo "<option value=".$row['name'].">".$row['name']."</option>";
-			$i += 1;
+			echo "<option value='".$row['aid']."'>".$row['name']."</option>";
 		}
 		?>
 	</select>

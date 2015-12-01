@@ -6,6 +6,7 @@
   $dbh = new PDO("mysql:host=localhost;dbname=phpauth", "root", "");
   $config = new PHPAuth\Config($dbh);
   $auth   = new PHPAuth\Auth($dbh, $config);
+  $app = "";
 
   if (!$auth->isLogged()) {
     header('HTTP/1.0 403 Forbidden');
@@ -42,17 +43,21 @@ th {text-align: left;}
 	echo '<h2 class="demoHeaders">Workflow(s)</h2>
 		 <select id="workflow_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadSspecDoc(this.value)">
 			<option value="" selected="selected">Select a workflow</option>
-			<option value="1">Create a Workflow</option>';
+			<option value="0">Create a Workflow</option>';
 	$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
-		$sql = "SELECT * FROM workflows WHERE application = '".$q."' AND (origin = '".$data['email']."' OR public = 1";
+    $sql = "SELECT * FROM applications WHERE aid = ".$q;
+    foreach ( $db->query($sql) as $row ) {
+      $app = $row['name'];
+    }
+
+		$sql = "SELECT * FROM workflows WHERE application = '".$app."' AND (origin = '".$data['email']."' OR public = 1)";
 		$i = 1;
 		foreach ( $db->query($sql) as $row )
 		{
-			echo "<option value=".$row['name'].">".$row['name']."</option>";
+			echo "<option value='".$row['wid']."''>".$row['name']."</option>";
 			$i += 1;
 		}
-	echo '</select>';
-	echo $sql;
+  echo '</select>';
 ?>
 </body>
 </html>
