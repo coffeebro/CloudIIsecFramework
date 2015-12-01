@@ -30,6 +30,8 @@
     <script>
 	function loadWorkflowDoc(str) {
   		if (str=="") {
+  			loadSspecDoc("");
+  			loadQspecDoc("");
     		document.getElementById("workflow").innerHTML="";
     		return;
  		} else{
@@ -51,6 +53,7 @@
 	}
 	function loadSspecDoc(str) {
   		if (str=="") {
+  			loadQspecDoc("");
     		document.getElementById("sspec").innerHTML="";
     		return;
  		} else{
