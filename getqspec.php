@@ -21,6 +21,7 @@ th {text-align: left;}
 	//output stage numbers
 	$q = intval($_GET['q']);
 	//$stages = array();
+	//comment
 	$info = array();
 	$stages = 3;
 	echo '<table style="width:400px">
