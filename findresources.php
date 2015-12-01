@@ -115,18 +115,18 @@ th {text-align: left;}
 		}
 		echo "</table>";
 		//gereration of qspec selection
-		echo '<h2 class="demoHeaders">Reseource(s)</h2>';/*
+		echo '<h2 class="demoHeaders">Reseource(s)</h2>
 		 <select id="qspec_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="">
-			<option value="" selected="selected">Select a Qspec</option>
-			<option value="0">Create a Qspec</option>';
-		$i = 1;
-		$sql = "SELECT DISTINCT name FROM qspec WHERE workflow = '".$workflow."'";
-		foreach ( $db->query($sql) as $row ) {
+			<option value="" selected="selected">Select a Resource</option>';
+		$i = 0;
+		$dbp = new PDO("mysql:host=localhost;dbname=FSOFT_performance", "root", "");
+		$sql = "SELECT * FROM resources";
+		foreach ( $dbp->query($sql) as $row ) {
 			echo '<option value="'.$row['name'].'">'.$row['name'].'</option>';
 			$i++;
 		}
 			
-		echo '</select>';*/
+		echo '</select>';
 	}
 ?>
 </body>
