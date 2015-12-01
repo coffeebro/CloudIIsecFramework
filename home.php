@@ -154,7 +154,7 @@
 		$i = 1;
 		foreach ( $db->query($sql) as $row )
 		{
-			echo "<option value=".$i.">".$row['name']."</option>";
+			echo "<option value=".$row['name'].">".$row['name']."</option>";
 			$i += 1;
 		}
 		?>

@@ -26,6 +26,14 @@ th {text-align: left;}
 	</tr>';
 
 	$q = intval($_GET['q']);
+	$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
+		$sql = "SELECT * FROM workflows WHERE name = ".$q;
+		echo '<tr>';
+		foreach ( $db->query($sql) as $row )
+		{
+			echo "<td>".$row['name']."</td><td>".$row['stages']."</td><td>".$row['origin']."</td>";
+		}
+		echo '</tr>';
 
 	if($q == 1) //populate form feilds
 	{
