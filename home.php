@@ -28,7 +28,7 @@
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script>
-	function loadAppDoc(str) {
+	function loadWorkflowDoc(str) {
   		if (str=="") {
     		document.getElementById("workflow").innerHTML="";
     		return;
@@ -45,10 +45,52 @@
       				document.getElementById("workflow").innerHTML = xmlhttp.responseText;
     			}
   			};
-  		xmlhttp.open("GET", "getApplication.php?q="+str, true);
+  		xmlhttp.open("GET", "getworkflow.php?q="+str, true);
   		xmlhttp.send();
+		}
 	}
-}
+	function loadSspecDoc(str) {
+  		if (str=="") {
+    		document.getElementById("sspec").innerHTML="";
+    		return;
+ 		} else{
+  			if (window.XMLHttpRequest) {
+    			// code for IE7+, Firefox, Chrome, Opera, Safari
+    			xmlhttp=new XMLHttpRequest();
+  			} else { 
+  				// code for IE6, IE5
+    			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  			}
+  			xmlhttp.onreadystatechange = function() {
+   				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      				document.getElementById("sspec").innerHTML = xmlhttp.responseText;
+    			}
+  			};
+  		xmlhttp.open("GET", "getsspec.php?q="+str, true);
+  		xmlhttp.send();
+	    }
+	}
+	function loadQspecDoc(str) {
+  		if (str=="") {
+    		document.getElementById("qspec").innerHTML="";
+    		return;
+ 		} else{
+  			if (window.XMLHttpRequest) {
+    			// code for IE7+, Firefox, Chrome, Opera, Safari
+    			xmlhttp=new XMLHttpRequest();
+  			} else { 
+  				// code for IE6, IE5
+    			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  			}
+  			xmlhttp.onreadystatechange = function() {
+   				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      				document.getElementById("qspec").innerHTML = xmlhttp.responseText;
+    			}
+  			};
+  		xmlhttp.open("GET", "getqspec.php?q="+str, true);
+  		xmlhttp.send();
+		}
+	}
 </script>
     <style>
 	body{
@@ -101,7 +143,7 @@
     <!-- select bar -->
 	<h2 class="demoHeaders">Applications</h2>
 	<!-- loop through available applications for user(stored in DB) -->
-	<select id="application menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadAppDoc(this.value)">
+	<select id="app_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadWorkflowDoc(this.value)">
 		<option value="" selected="selected">Select an Application</option>
 		<option value="1">SoyKB</option>
 		<option value="2">stuff</option>
@@ -109,5 +151,7 @@
 	</select>
 	<br>
     <div id="workflow"><b></b></div>
+    <div id="sspec"><b></b></div>
+    <div id="qspec"><b></b></div>
   </body>
 </html>
