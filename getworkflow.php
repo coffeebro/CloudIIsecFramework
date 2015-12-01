@@ -1,3 +1,23 @@
+<?php
+
+  include("PHPAuth/Config.php");
+  include("PHPAuth/Auth.php");
+
+  $dbh = new PDO("mysql:host=localhost;dbname=phpauth", "root", "");
+  $config = new PHPAuth\Config($dbh);
+  $auth   = new PHPAuth\Auth($dbh, $config);
+
+  if (!$auth->isLogged()) {
+    header('HTTP/1.0 403 Forbidden');
+    echo "Forbidden";
+
+    exit();
+  }
+  
+  $uid = $auth->getSessionUID( $_COOKIE[$config->cookie_name] );
+  $data = $auth->getUser( $uid );
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +44,7 @@ th {text-align: left;}
 			<option value="" selected="selected">Select a workflow</option>
 			<option value="1">Create a Workflow</option>';
 	$db = new PDO("mysql:host=localhost;dbname=FSOFT_elements", "root", "");
-		$sql = "SELECT * FROM workflows WHERE application = ".$q." and public = 1";
+		$sql = "SELECT * FROM workflows WHERE application = '".$q."' AND (origin = '".$data['email']."' OR public = 1";
 		$i = 1;
 		foreach ( $db->query($sql) as $row )
 		{
@@ -32,6 +52,7 @@ th {text-align: left;}
 			$i += 1;
 		}
 	echo '</select>';
+	echo $sql;
 ?>
 </body>
 </html>
