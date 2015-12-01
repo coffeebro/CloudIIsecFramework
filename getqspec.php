@@ -366,7 +366,7 @@ th {text-align: left;}
 		{
 			echo '<tr><td>'.$i.'</td>';
 			$sql = "SELECT * FROM sspec WHERE name = '".$_GET['q']."' AND stage ='".$i."'";
-			echo $sql;
+			//echo $sql;
 			foreach ( $db->query($sql) as $row )
 			{
 				echo '<td>'.$row['ac'].'</td>';
@@ -393,7 +393,7 @@ th {text-align: left;}
 		echo "</table>";
 		//gereration of qspec selection
 		echo '<h2 class="demoHeaders">Qspecs(s)</h2>
-		 <select id="qspec_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="">
+		 <select id="qspec_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadResourcesDoc(this.value)">
 			<option value="" selected="selected">Select a Qspec</option>
 			<option value="0">Create a Qspec</option>';
 		$i = 1;
