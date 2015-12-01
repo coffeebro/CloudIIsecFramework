@@ -20,10 +20,7 @@ You'll need to do two things in order to deploy the framework interface:
 
   3. Follow a similar process as above to create the "FSOFT_elements", "FSOFT_security", and "FSOFT_performance" databases, and populate them with the .sql files supplied in the "databases" folder of the repository.
 
-That's it!  You can visit the main page by visiting "localhost/CloudIIsecFramework/index.php" in your web browser.  Login with the following credentials to see the full range of implementation:
-
-  Username: test@test.com
-  Password: test
+That's it!  You can visit the main page by visiting "localhost/CloudIIsecFramework/index.php" in your web browser.  Create a user with an e-mail of "test@test.com" and your favorite dummy password, then login to get started!
 
 #Supported Actions
 Below is a list of the currently implemented functionality:
