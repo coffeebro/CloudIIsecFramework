@@ -71,9 +71,9 @@
     <script src="js/jquery-ui.min.js"></script>
     <script>
 	function loadWorkflowDoc(str) {
+		console.log(str);
   		if (str=="") {
-  			loadSspecDoc("");
-  			loadQspecDoc("");
+		    loadSspecDoc("");
     		document.getElementById("workflow").innerHTML="";
     		return;
  		} else{
@@ -89,8 +89,8 @@
       				document.getElementById("workflow").innerHTML = xmlhttp.responseText;
     			}
   			};
-  		xmlhttp.open("GET", "getworkflow.php?q="+str, true);
-  		xmlhttp.send();
+  			xmlhttp.open("GET", "getworkflow.php?q="+str, true);
+  			xmlhttp.send();
 		}
 	}
 	function loadSspecDoc(str) {
@@ -117,6 +117,7 @@
 	}
 	function loadQspecDoc(str) {
   		if (str=="") {
+  			loadResourcesDoc("");
     		document.getElementById("qspec").innerHTML="";
     		return;
  		} else{
@@ -137,10 +138,13 @@
 		}
 	}
 	function loadResourcesDoc(str) {
-  		if (str=="") {
+  		if (str=="") {			
     		document.getElementById("resources").innerHTML="";
     		return;
  		} else{
+ 			var sspec_value = document.querySelector("#sspec_menu").value;
+			console.log(sspec_value);
+			console.log(str);
   			if (window.XMLHttpRequest) {
     			// code for IE7+, Firefox, Chrome, Opera, Safari
     			xmlhttp=new XMLHttpRequest();
@@ -153,7 +157,7 @@
       				document.getElementById("resources").innerHTML = xmlhttp.responseText;
     			}
   			};
-  		xmlhttp.open("GET", "findresources.php?q="+str, true);
+  		xmlhttp.open("GET", "findresources.php?q="+str+"&r="+sspec_value, true);
   		xmlhttp.send();
 		}
 	}

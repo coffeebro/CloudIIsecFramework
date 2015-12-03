@@ -77,7 +77,7 @@ th {text-align: left;}
 			<th>Write Speed</th>
 			<th>Size</th>
 	</tr>';
-	
+	echo $_GET['r'];
 	if($_GET['q'] == '0') //populate form feilds
 	{ 
 	  //add qspec

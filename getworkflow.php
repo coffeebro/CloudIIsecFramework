@@ -41,7 +41,7 @@ th {text-align: left;}
 <?php
 	$q = intval($_GET['q']);
 	
-//iterate through the workflows
+	//iterate through the workflows
 	echo '<h2 class="demoHeaders">Workflow(s)</h2>
 		 <select id="workflow_menu" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onchange="loadSspecDoc(this.value,'.$q.')">
 			<option value="" selected="selected">Select a workflow</option>';
