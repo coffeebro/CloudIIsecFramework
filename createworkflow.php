@@ -25,7 +25,7 @@ $sth = $dbh->query($sql);
 
     <div>
       <?php
-      	echo 'WorkFlow Added';
+      	echo 'WorkFlow Added\n';
         echo '<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="window.location.href=\'home.php\'"><span class="ui-button-text">Return Home</span></button>';
       ?>
     </div>
