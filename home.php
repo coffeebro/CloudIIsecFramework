@@ -121,6 +121,8 @@
     		document.getElementById("qspec").innerHTML="";
     		return;
  		} else{
+ 			var workflow_value = document.querySelector("#workflow_menu").value;
+			console.log(workflow_value);
   			if (window.XMLHttpRequest) {
     			// code for IE7+, Firefox, Chrome, Opera, Safari
     			xmlhttp=new XMLHttpRequest();
@@ -133,7 +135,7 @@
       				document.getElementById("qspec").innerHTML = xmlhttp.responseText;
     			}
   			};
-  		xmlhttp.open("GET", "getqspec.php?q="+str, true);
+  		xmlhttp.open("GET", "getqspec.php?q="+str+"&r="+workflow_value, true);
   		xmlhttp.send();
 		}
 	}

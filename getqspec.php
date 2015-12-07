@@ -43,7 +43,7 @@ th {text-align: left;}
 	$q = intval($_GET['q']);
 	//$stages = array();
 	//comment
-	$stages;
+	$stages = 1;
 	$workflow;
 	$info = array();
 	//get workflow from name of sspec
@@ -53,10 +53,17 @@ th {text-align: left;}
 	{
 		$workflow = $row['workflow'];
 	}
-	$sql = "SELECT stages FROM workflows WHERE name = '".$workflow."'";
+	$sql = "SELECT stages FROM workflows WHERE wid = '".$_GET['r']."'";
 	foreach ( $db->query($sql) as $row )
 	{
 		$stages = $row['stages'];
+	}
+	if($q == 0)
+	{
+		echo '<form action="createsspec.php" method="POST">
+		<input type="hidden" name="stages" value="'.$stages.'">
+		Sspec Name:
+		<input type="text" name="sspec">';
 	}
 	echo '<table style="width:600px">
 	<tr>
@@ -84,279 +91,28 @@ th {text-align: left;}
 	if($_GET['q'] == '0') //populate form feilds
 	{
 		//loop stages and radio boxes
-		echo '<tr>
-			<td>AC</td>';
+		echo '<tr>';
 			for($i = 1; $i <= $stages; $i++)
 			{
-				echo '<td>
-						<form style="margin-top: 1em;">
+				echo '<tr><td>'.$i.'</td>';
+				for($j = 0; $j < 18; $j++)
+				{
+					echo '<td>
 							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][0]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][0]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][0]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
+								<input type="radio" name="stage'.$i.''.$j.'" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
+								<input type="radio" name="stage'.$i.''.$j.'" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
+								<input type="radio" name="stage'.$i.''.$j.'" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
 							</div>
 						</form>
 					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>AU</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][1]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][1]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][1]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>CA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][2]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][2]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][2]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>IA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][3]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][3]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][3]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>SA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][4]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][4]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][4]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>SC</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][5]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][5]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][5]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>SI</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][6]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][6]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][6]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>AT</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][7]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][7]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][7]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>CM</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][8]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][8]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][8]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>CP</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][9]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][9]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][9]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>IR</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][10]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][10]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][10]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>MA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][11]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][11]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][11]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>MP</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][12]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][12]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][12]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>PE</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][13]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][13]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][13]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>PL</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][14]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][14]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][14]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>PM</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][15]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][15]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][15]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>PS</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][16]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][16]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][16]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
-			}
-		echo '</tr>
-		<tr>
-			<td>RA</td>';
-			for($i = 1; $i <= $stages; $i++)
-			{
-				echo '<td>
-						<form style="margin-top: 1em;">
-							<div id="radioset">
-								<input type="radio" id="radio1" name="stage[i][17]" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" id="radio2" name="stage[i][17]" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" id="radio3" name="stage[i][17]" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
-							</div>
-						</form>
-					</td>';
+				}
 			}
 		echo '</tr>';
+		
 		//make button to submit to server
 		echo '</table>
-		<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="window.location.href=""><span class="ui-button-text">Add Sspec</span></button>';
+		<button id="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" onclick="window.location.href=""><span class="ui-button-text">Add Sspec</span></button>
+		</form>';	
 	}else //get workflow information from DB
 	{		
 	    //loop stages
