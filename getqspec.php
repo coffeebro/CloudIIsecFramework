@@ -53,17 +53,19 @@ th {text-align: left;}
 	{
 		$workflow = $row['workflow'];
 	}
-	$sql = "SELECT stages FROM workflows WHERE wid = '".$_GET['r']."'";
+	$sql = "SELECT * FROM workflows WHERE wid = '".$_GET['r']."'";
 	foreach ( $db->query($sql) as $row )
 	{
 		$stages = $row['stages'];
+		$workflow = $row['name'];
 	}
 	if($q == 0)
 	{
 		echo '<form action="createsspec.php" method="POST">
 		<input type="hidden" name="stages" value="'.$stages.'">
 		Sspec Name:
-		<input type="text" name="sspec">';
+		<input type="text" name="sspec">
+		<input type="hidden" name="workflow" value="'.$workflow.'">';
 	}
 	echo '<table style="width:600px">
 	<tr>
@@ -99,9 +101,10 @@ th {text-align: left;}
 				{
 					echo '<td>
 							<div id="radioset">
-								<input type="radio" name="stage'.$i.''.$j.'" value="low" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
-								<input type="radio" name="stage'.$i.''.$j.'" value="medium" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
-								<input type="radio" name="stage'.$i.''.$j.'" value="high" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
+								<input type="radio" name="stage'.$i.''.$j.'" value="L" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio1">Low</label>
+								<input type="radio" name="stage'.$i.''.$j.'" value="M" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio2">Medium</label>
+								<input type="radio" name="stage'.$i.''.$j.'" value="H" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">High</label>
+								<input checked type="radio" name="stage'.$i.''.$j.'" value="" class="ui-state-default ui-corner-all" title=".ui-icon-radio-on"><label for="radio3">Default</label>
 							</div>
 						</form>
 					</td>';
