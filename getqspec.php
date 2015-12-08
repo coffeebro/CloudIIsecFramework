@@ -59,7 +59,7 @@ th {text-align: left;}
 		$stages = $row['stages'];
 		$workflow = $row['name'];
 	}
-	if($q == 0)
+	if($_GET['q'] == "0")
 	{
 		echo '<form action="createsspec.php" method="POST">
 		<input type="hidden" name="stages" value="'.$stages.'">

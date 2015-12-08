@@ -30,14 +30,13 @@ for($i = 1; $i <= $stages; $i++)
 		$sql = "INSERT INTO sspec (name, workflow, stage, ac, au, ca, ia, sa, sc, si, at, cm, cp, ir, ma, mp, pe, pl, pm, ps, ra) VALUES ('".$_POST['sspec']."', '".$_POST['workflow']."', '".$stage."', '".$ac."', '".$au."', '".$ca."', '".$ia."', '".$sa."', '".$sc."', '".$si."', '".$at."', '".$cm."', '".$cp."', '".$ir."', '".$ma."', '".$mp."', '".$pe."', '".$pl."', '".$pm."', '".$ps."', '".$ra."')";
 		$sth = $dbh->query($sql);
 }
-echo $sql;
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Federated Security Framework Registration Portal</title>
+    <title>Federated Security Framework Create Sspec</title>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>

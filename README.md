@@ -28,13 +28,12 @@ Below is a list of the currently implemented functionality:
   2. Login
   3. Select and view applications
   4. Select, create and view workflows
-  5. Select and view S-Spec
-  6. Select and view Q-Spec
-  7. Select Resources
+  5. Select, create and view S-Spec
+  6. Select, create and view Q-Spec
   8. Logout
 
 #Todo
-  1. Implement S-Spec creation
-  2. Implement Q-Spec creation
-  3. Implement the resource selection process (based on parameters)
-  4. Implement output of the resource selection process
+  1. Implement the resource selection process (based on parameters)
+  2. Implement output of the resource selection process
+  3. Select Resources
+

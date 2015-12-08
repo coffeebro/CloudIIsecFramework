@@ -144,7 +144,9 @@
     		document.getElementById("resources").innerHTML="";
     		return;
  		} else{
+ 		 	var workflow_value = document.querySelector("#workflow_menu").value;
  			var sspec_value = document.querySelector("#sspec_menu").value;
+ 			var app_value = document.querySelector("#app_menu").value;
 			console.log(sspec_value);
 			console.log(str);
   			if (window.XMLHttpRequest) {
@@ -159,7 +161,7 @@
       				document.getElementById("resources").innerHTML = xmlhttp.responseText;
     			}
   			};
-  		xmlhttp.open("GET", "findresources.php?q="+str+"&r="+sspec_value, true);
+  		xmlhttp.open("GET", "findresources.php?q="+str+"&r="+workflow_value+"&s="+sspec_value+"&t="+app_value, true);
   		xmlhttp.send();
 		}
 	}
@@ -189,8 +191,5 @@
     <div id="sspec"><b></b></div>
     <div id="qspec"><b></b></div>
     <div id="resources"><b></b></div>
-    <script>
-    $( "#radioset" ).buttonset();
-    </script>
   </body>
 </html>
